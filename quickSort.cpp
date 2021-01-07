@@ -1,39 +1,76 @@
-#include<bits/stdc++.h>			//== CREATED BY ROCKHIGHT == -- 27-07-20 12:42 --
-using namespace std;			//{{ title }}
-void cinArr(int n,int arr[]){for(int i=1;i<=n;i++){cin>>arr[i];}}
-void coutArr(int n,int arr[]){for(int i=1;i<=n;i++){cout<<arr[i]<<" ";}}
+#include<bits/stdc++.h>			//== CREATED BY Virgilio-AI == -- 27-07-20 12:42 --
+using namespace std;			//{{ quick sort algorithm }}
+/*
+statement
+create a program that recieves the number n and recieves an array of n numbers separated by a space.
+then sort the array in ascendent order using Quick Sort
+*/
+// function to input an array
+void cinArr(int n,int arr[])
+{
+  for(int i=1;i<=n;i++)
+  {
+    cin>>arr[i];
+  }
+}
+//function to output an array
+void coutArr(int n,int arr[])
+{
+  for(int i=1;i<=n;i++)
+  {
+    cout<<arr[i]<<" ";
+    }
+}
 //===== VARIABLES GLOBALES === -> === PROTOTIPOS DE FUNCIONES =====
 const int Nmax=1000006;
 int n,arr[Nmax];
-
-void quick_sortR(int arreglo[],int inicio,int fin){
-  if( inicio>=fin) return;
-  if( inicio+1 == fin){
-    if(arreglo[inicio]>arreglo[fin]) swap(arreglo[inicio],arreglo[fin]);
-    return;
-  }
-  int p = inicio;
-  int i = inicio+1;
-  int d = fin;
-  while( i<d ){
-    while( i<d && arreglo[i] <= arreglo[p] ) i++;
-    while( i<d && arreglo[d] > arreglo[p] ) d--;
-    if( i<d ){
-       swap(arreglo[i],arreglo[d]);
+//main quick sort function
+void quick_SortR(int array[],int beggining,int end){
+  //check if the beggining is bigger than the end
+  //is >= because you actually can run into a beggining bigger than the 
+  //end, for example if you arrive to line 47 and you have the three numbers 1 2 3
+  //hence the pivot at 1 and left,right in 3,2 respectively
+  //pivote will be still pointing to 1 respectively and in line 58 you would pass something like 
+  // quick_Sort(array,1,-1)
+  if(beggining >= end) return;
+  //the limit case for the recursion
+  if(beggining == end-1)
+  {
+    if(array[beggining] > array[end])
+    {
+      swap(array[beggining],array[end]);
+    }
+  }  
+  int left = beggining+1,right = end,pivote = beggining;
+  //just apply algorithm, swap the numbers in the positions of the pointers of left and right 
+  //untill they are in the same place and hence the pivot is less than the elements on the right of the center
+  //and bigger or equal to the elements on the left of the center
+  while(left<right)
+  {
+    while(left<right && array[pivote] >= array[left]) left++;
+    while(left < right && array[pivote] < array[right]) right--;
+    if(left < right) 
+    {
+      swap(array[left],array[right]);
     }
   }
-  if(arreglo[p]<=arreglo[i]){
-    swap(arreglo[p],arreglo[i-1]);
-    p = i-1;
-  }else{
-    swap(arreglo[p],arreglo[i]);
-    p = i;
+  // if the center is the greater or equal to the pivote, the pivote will pass to be less than left 
+  // to have all greater or equal elements on the right and all lesser elements on the left
+  if(array[pivote] <= array[left])
+  {
+    swap(array[pivote],array[left-1]);
+    pivote = left-1;    
   }
-  quick_sortR(arreglo,inicio,p-1);
-  quick_sortR(arreglo,p+1,fin);
+  else
+  {
+    swap(array[pivote],array[left]);
+    pivote = left;
+  }
+  quick_SortR(array,beggining,pivote-1);
+  quick_SortR(array,pivote+1,end);    
 }
 void quickSort(){
-	quick_sortR(arr,1,n);
+	quick_SortR(arr,1,n);
 }
 //=====================		MAIN 	===================================
 int main(){

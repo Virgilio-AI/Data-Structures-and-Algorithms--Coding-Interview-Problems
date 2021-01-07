@@ -1,46 +1,67 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-bool isValidDist(vector< pair<int,int> > points, int Dist) {
-    int n = points.size();
-    int p = -1, minY = 1000000, maxY = -1000000;
-    for(int j = 0; j < n; j++) {
-        while(p + 1 < j && points[j].first - points[p + 1].first >= Dist) {
-            p++;
-            minY = min(minY, points[p].second);
-            maxY = max(maxY, points[p].second);
-        }
-        if(p != -1 && abs(minY - points[j].second) >= Dist)
-            return true;
-        if(p != -1 && abs(maxY - points[j].second) >= Dist)
-            return true;
-    }
-    return false;
+
+int n;
+vector<pair<int,int>> Points;
+void BinarySearchAnswer();
+bool IsValidDistance(int m);
+
+int main()
+{
+    //input of all points
+    cin>>n;
+    while(n--)
+    {
+        int x,y;
+        cin>>x>>y;        
+        Points.emplace_back(x,y);
+    }     
+    BinarySearchAnswer();
 }
-int bSearch(vector< pair<int, int> > points) {
-    int Left = 0, Right = 1000000, ans;
-    sort(points.begin(), points.end());
-    while(Left <= Right) {
-        int Mid = (Left + Right) / 2;
-        if(isValidDist(points, Mid)) {
-            ans = Mid;
-            Left = Mid + 1;
+
+void BinarySearchAnswer()
+{
+    //we sort the points in ascending form
+    //the we execute a binary search with help 
+    //of the function IsValidDistance    
+    int Left=0,Right=1'000'000,answer;
+    sort(Points.begin(),Points.end());
+    while(Left<=Right)
+    {
+        int Distance=(Left+Right)/2;
+        if(IsValidDistance(Distance))
+        {
+            Left = Distance+1;
+            answer=Distance;
         }
         else
-            Right = Mid - 1;
-    }
-    return ans;
+        {
+            Right = Distance-1;            
+        }
+    }    
+    cout<<"answer:"<<answer<<endl;    
 }
-int main(){
-    int n;
-    vector< pair<int,int> > points;
-    cin >> n;
-    for(int i = 1; i <= n; i++) {
-        int x, y;
-        cin >> x >> y;
-        points.push_back(make_pair(x, y));
-    }
-    cout << bSearch(points);
-    return 0;
+//tells us if the currend Distance is valid
+//that is if there is any pair of points such that 
+//Distance <= min(abs(xi-xj),abs(yi-yj))
+bool IsValidDistance(int Distance)
+{
+    int NumberOfPoints = Points.size();
+    //initialize the biggest minimum and the smallest maximum
+    int LeftPointer=-1,MinimumY=1'000'000,MaximumY=-1'000'000;
+    for(int i=0;i<NumberOfPoints;i++)
+    {
+        //set a range from LeftPointer + 1 to i and 
+        //so that abs(xi-xj) >= Distance and
+        //checks if there is some abs(yi-yj)
+        while(LeftPointer + 1 < i && Points[i].first - Points[LeftPointer+1].first >=Distance)
+        {
+            LeftPointer++;
+            MinimumY = min(MinimumY,Points[LeftPointer].second);
+            MaximumY = max(MaximumY,Points[LeftPointer].second);
+        }
+        if(LeftPointer != -1 && abs(MinimumY - Points[i].second) >= Distance) return true;
+        if(LeftPointer != -1 && abs(MaximumY - Points[i].second) >= Distance) return true; 
+    }    
+    return false;
 }
