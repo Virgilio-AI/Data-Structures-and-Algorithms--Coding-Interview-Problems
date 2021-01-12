@@ -4,5 +4,6 @@
             "pattern": "**/*.cpp",
             "snippet": "body-template"
         },
-    ]
+    ],
+    "workbench.colorTheme": "Solarized Light"
 }
