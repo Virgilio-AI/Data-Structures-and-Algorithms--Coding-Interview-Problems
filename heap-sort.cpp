@@ -7,29 +7,40 @@ const int Nmax=100000007;const double pi = 2*acos(0.0);
 int n,m,x,y,z,w,arreglo[Nmax];
 
 void heap_sort() {
-  // Insercion
-  for (int i=2; i<=n; i++) {
-    int h = i;
-    while ( h>1 && arreglo[h] > arreglo[h/2]) {
-      swap(arreglo[h],arreglo[h/2]); //swap(arreglo, h, h/2);
-      h = h/2;
+  //insercion
+  for(int i=2;i<=n;i++)
+  {
+    int h=i;
+    while( h>1 && arreglo[h] > arreglo[h/2])
+    {
+      swap(arreglo[h],arreglo[h/2]);
+      h = h/2;      
     }
   }
-  // Eliminacion
-  for (int i=n; i>0; i--) {
-   swap(arreglo[1],arreglo[i]);// swap(arreglo, 1, i);
-    int p = 1;
-    // el hijo 1 está dentro del heap y es más grande que el papá
-    while ( (p*2<i && arreglo[p*2]>arreglo[p])||(p*2+1<i && arreglo[p*2+1]>arreglo[p])  ) {
-      if ( (p*2<i && p*2+1<i && arreglo[p*2]>=arreglo[p*2+1])  || (p*2+1>=i)) {
+  //eliminacion
+  for(int i=n;i>0;i--)
+  {
+    int p=1;
+    swap(arreglo[p],arreglo[i]);
+    //while one of the childs is bigger than the father 
+    while(p*2 < i && arreglo[p]<arreglo[p*2] || p*2+1 < i && arreglo[p]<arreglo[p*2+1] )
+    {
+      //if the right child is of the margins or if bouth the left and the right childs are inside 
+      //of the margins and the left child is bigger than the right child
+      if(p*2+1 >=i || p*2+1<i && p*2 < i && arreglo[p*2+1]<arreglo[p*2])
+      {
         swap(arreglo[p],arreglo[p*2]);
         p = p*2;
-      } else {
-        swap(arreglo[p],arreglo[p*2+1]);//swap(arreglo, p, p*2+1);
+      }
+      //if the two childs are on the margins and 
+      //the right child is less than the left child
+      else
+      {
+        swap(arreglo[p],arreglo[p*2+1]);
         p = p*2+1;
       }
     }
-  }
+  }  
 }
 //=====================		MAIN 	===================================
 int main(){
