@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>			//== CREATED BY Virgilio-AI == -- 27-07-20 12:42 --
+#include<bits/stdc++.h>			//== CREATED BY Virgilio-AI 
 using namespace std;			//{{ quick sort algorithm }}
 /*
 statement
