@@ -26,8 +26,8 @@ public:
         }
         return ans;
     }
-};
-
+};			
+			
 int main()
 {    
     string str;
