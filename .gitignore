@@ -3,4 +3,6 @@ quicksort
 #compiled source#
 *.exe
 *.swp
+*.un~
+*.cpp~
 #################
