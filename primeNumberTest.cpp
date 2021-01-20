@@ -1,35 +1,38 @@
-//====================== CREATED BY ROCKHIGHT ==========================
-//---------------------- 07-07-20 16:56 -----------------------------
-//{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{PRIME NUMBER TEST}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 #include<bits/stdc++.h>
 using namespace std;
-//===================== VARIABLES GLOBALES =============================
-
-//===================== PROTOTIPOS DE FUNCIONES ========================
-bool primeNumberTest(int n);
-//=====================		MAIN 	===================================
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-int main(){
-int number;
-cout<<"ingrese el numero para checar si es un numero primo o es un número no primo\n";
-cin>>number;
-if(primeNumberTest(number)==true){
-	cout<<"es un numero primo";
-}else{
-	cout<<"no es un numero primo";
-}
-
-return 0;
-}
-//==================== FUNCIONES =======================================
-bool primeNumberTest(int n){
-	if(n<=1){
-		return false;
-	}
-	for(int i=2;i<=sqrt(n);i++){
-		if(n%i==0){
-			return false;
-		}
+/*
+ * problem statement:
+ * create a program that checks if a number is prime or not
+*/
+ 
+bool PrimeNumberTest(int Number)
+{
+	//check if is divisible by 2
+	if(Number%2 == 0 ) return false;
+	//cut the complexity in four by only iterating throw numbers in the form 2*k + 1 so that 
+	//all numbers divisible by 2 are ignored, since we already checked divisivility by 2
+	//and then omiting all numbers bigger than sqrt(Number) because they cant be a factor of it 
+	for(int i=1;(2*i +1)*(2*i+1)<=Number;i++)
+	{
+		if(Number%(2*i+1) == 0) return false;
 	}
 	return true;
 }
+
+int main()
+{
+	int n;
+	cin>>n;
+	if(PrimeNumberTest(n))
+	{
+		cout<<"primo"<<endl;
+	}
+	else
+	{
+		cout<<"no primo"<<endl;
+	}
+	
+
+	return 0;
+}
+
