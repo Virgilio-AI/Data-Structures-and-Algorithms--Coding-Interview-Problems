@@ -5,4 +5,5 @@ quicksort
 *.swp
 *.un~
 *.cpp~
+.vscode
 #################
