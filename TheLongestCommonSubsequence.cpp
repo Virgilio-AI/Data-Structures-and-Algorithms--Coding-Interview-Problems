@@ -10,7 +10,7 @@ void TheLongestCommonSubSequence()
 		{
 			if(arr1[i] == arr2[j])
 			{
-				dp[i][j] = dp[i-1][j-1] + 1;
+				dp[i][j] = dp[i-1][j-1] + 1;	
 			}
 			else
 			{
