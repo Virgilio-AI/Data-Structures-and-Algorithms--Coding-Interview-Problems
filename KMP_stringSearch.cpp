@@ -53,7 +53,8 @@ vector<int> KMP_stringPatternSearching(string text, string pattern) {
 		}
 		if(counter==pat_len-1)
 		{
-			instances.push_back(i-counter+1);
+			instances.push_back(i-counter);
+			counter = recurrence[counter];
 		}
 	}
 	return instances;
@@ -62,8 +63,8 @@ vector<int> KMP_stringPatternSearching(string text, string pattern) {
 int main(){
 ios::sync_with_stdio(0);
 
-  string text = "XOXXOOXXOXXXOXOOXOXOXOXXO";
-  string pattern = "XOXOXXO";
+  string text = "abcabcabcabc";
+  string pattern = "abcabc";
   //change current text to lower characters
   transform(text.begin(),text.end(),text.begin(),::tolower);
   //change current pattern to lower characters
@@ -84,4 +85,5 @@ ios::sync_with_stdio(0);
 	        	       
 return 0;
 }
+
 
