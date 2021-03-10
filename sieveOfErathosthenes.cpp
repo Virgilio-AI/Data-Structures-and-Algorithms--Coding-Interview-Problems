@@ -1,26 +1,43 @@
-#include<bits/stdc++.h>			//== CREATED BY ROCKHIGHT == -- 09-07-20 15:13 --
-using namespace std;			//{{ title }}
-//===== VARIABLES GLOBALES === -> === PROTOTIPOS DE FUNCIONES =====
-void sieveOfErathosthenes(int limit);
+#include<bits/stdc++.h>
+using namespace std;
+int n,k;
+const int MaxNum = 1000000;
+bool sieve[MaxNum];
+void MakeSieve()
+{
+	for(int i=2;i<sqrt(MaxNum);i++)
+	{
+		if(sieve[i])
+		{
+			int element = i;
+			for(int j=element*2;j<=MaxNum;j+=element) sieve[j] = false;
+		}
+	}
+}
 
-const int Nmax=100001;
-bool isPrime[Nmax];
- 
-//=====================		MAIN 	===================================
-int main(){
-	int n;cin>>n;
-	sieveOfErathosthenes(n);
-	for(int i=0;i<=n;i++)
-		if(isPrime[i]==true)
-			cout<<i<<" ";			
-return 0;
+void SieveQuery(int k)
+{
+	for(int i=1;i<=k;i++)
+	{
+		if(sieve[i])
+		{
+			cout<<i<<" ";
+		}
+	}
+	cout<<endl;
 }
-//======== FUNCIONES ========
-void sieveOfErathosthenes(int n){
-	for(int i=2;i<=n;i++)
-		isPrime[i]=true;
-	for(int i=2;i<=n/2;i++)
-		if(isPrime[i]==true)
-			for(int j=i*2;j<=n;j+=i)
-				isPrime[j]=false;	
+
+int main()
+{
+	for(int i=0;i<MaxNum;i++) sieve[i] = true;
+	cin>>n;
+	MakeSieve();
+	while(n--)
+	{
+		cin>>k;
+		SieveQuery(k);
+	}
+
+	return 0;
 }
+

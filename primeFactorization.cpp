@@ -1,44 +1,44 @@
-//====================== CREATED BY ROCKHIGHT ==========================//---------------------- 08-07-20 13:21 -----------------------------//{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{problema 2 algoritmos para competicion}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 #include<bits/stdc++.h>
 using namespace std;
-//===================== VARIABLES GLOBALES =============================//===================== PROTOTIPOS DE FUNCIONES ========================
-void factorization(int num);
-//=====================		MAIN 	===================================//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-int main(){
-int n;cin>>n;
-for(int i=0;i<n;i++){	int numTemp;	cin>>numTemp;	factorization(numTemp);	}
-return 0;
-}//==================== FUNCIONES =======================================
-void factorization(int num){
-int expo[100],primo[100],len=0;
-if(num==1){
-	len++;
-	primo[len]=2;
-	expo[len]=0;
-	return;
-}
-	int d=2;
-	while(1ll*d*d<=num&&num>1){
-		int k=0;
-		while(num%d==0){
-			num/=d;
-			k++;
+const int N = 100;
+void fact(int k)
+{
+	map<int,int> mp;
+	for(int i=2;i<=sqrt(k);i++)
+	{
+		int expo = 0;
+		while(k%i==0)
+		{
+			expo++;
+			k/= i;
 		}
-		if(k>0){
-			len++;
-			primo[len]=d;
-			expo[len]=k;
+		if(expo!=0)
+		{
+			mp[i] = expo;
 		}
-		d++;
 	}
-	if(num>1){
-		len++;
-		primo[len]=num;
-		expo[len]=1;
+	if(k>1)
+	{
+		mp[k] = 1;
 	}
-		cout<<"("<<primo[1]<<"^"<<expo[1]<<")";
-	for(int i=2;i<=len;i++){
-		cout<<"*("<<primo[i]<<"^"<<expo[i]<<")";
+	for(auto a:mp)
+	{
+		cout<<"("<<a.first<<"^"<<a.second<<")";
 	}
-	cout<<"\n";
+	cout<<endl;
 }
+
+
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		int k;
+		cin>>k;
+		fact(k);
+	}
+	return 0;
+}
+

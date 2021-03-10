@@ -1,27 +1,37 @@
-#include<bits/stdc++.h>			//== CREATED BY ROCKHIGHT == -- 27-07-20 12:42 --
-using namespace std;			//{{ title }}
-void cinArr(int n,int arr[]){for(int i=1;i<=n;i++){cin>>arr[i];}}
-void coutArr(int n,int arr[]){for(int i=1;i<=n;i++){cout<<arr[i]<<" ";}}
-//===== VARIABLES GLOBALES === -> === PROTOTIPOS DE FUNCIONES =====
-const int Nmax=100000007;const double pi = 2*acos(0.0);
-int n,m,x,y,z,w,arr[Nmax];
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+const int N = 300;
+int arr[N];
+mt19937 generator (time(NULL));
+uniform_real_distribution<double> dis(0.0, 1.0);
 
-void insercion(){
-	for(int i=2;i<=n;i++){
-		int j=i;
-		while(j>=2&&arr[j]<arr[j-1]){
-			swap(arr[j],arr[j-1]);
-			j=j-1;
+void InsertionSort()
+{
+	for(int i=1;i<n;i++)
+	{
+		int index = i;
+		while(index>0 && arr[index] < arr[index-1])
+		{
+			swap(arr[index],arr[index-1]);
+			index--;
 		}
 	}
 }
-//=====================		MAIN 	===================================
-int main(){
-ios::sync_with_stdio(0);
-cin>>n;
-cinArr(n,arr);
-insercion();
-coutArr(n,arr);
-return 0;
+
+int main()
+{
+	cin>>n;
+	for(int i=0;i<n;i++)
+	{
+		arr[i] = dis(generator)*10;
+	}
+	cout<<"antes de la insercion"<<endl;
+	for(int i=0;i<n;i++) cout<<arr[i]<<" ";
+	cout<<endl;
+	InsertionSort();
+	for(int i=0;i<n;i++) cout<<arr[i]<<" ";
+	return 0;
 }
 
+	

@@ -4,71 +4,59 @@ void cinArr(int n,int arr[]){for(int i=1;i<=n;i++){cin>>arr[i];}}
 void coutArr(int n,int arr[]){for(int i=1;i<=n;i++){cout<<arr[i]<<" ";}}
 //===== VARIABLES GLOBALES === -> === PROTOTIPOS DE FUNCIONES =====
 
-bool isSafe(int tablero[9][9],int fila, int columna,int num){ 
-    //checando las filas y las columnas
-    for (int d = 0; d < 9; d++){ 
-        if (tablero[fila][d] == num)  { 
-            return false; 
-        } 
-    }  
-    for (int r = 0; r < 9; r++) { 
-        if (tablero[r][columna] == num) { 
-            return false; 
-        } 
-    }
-    //checando los cuadrados
-    
-    int root = (int) sqrt(9); 
-    int iniciofilacaja = fila - fila % root; // iniciofilacaja = 0 
-    int iniciocolumnacaja = columna - columna % root;//iniciocolumnacaja = 
-    //(0,3)
-  
-    for (int r = iniciofilacaja; r < iniciofilacaja + root; r++){ 
-        for (int d = iniciocolumnacaja; d < iniciocolumnacaja + root; d++)  { 
-            if (tablero[r][d] == num)  { 
-                return false; 
-            } 
-        } 
-    } 
-    return true; 
+bool isSafe(int tablero[9][9],int fila, int columna,int num){
+	for(int i=0;i<9;i++)
+	{
+		if(i!= fila && tablero[columna][i] == num || i!= columna && tablero[i][fila] == num ) return false;
+	}
+	int FilaCaja = fila - fila%3;
+	int ColumnaCaja = columna - columna%3;
+	for(int i=ColumnaCaja;i<= ColumnaCaja + 2;i++)
+	{
+		for(int j=FilaCaja;j<=FilaCaja + 2;j++)
+		{
+			if(i != columna && j!= fila && tablero[i][j] == num)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 } 
 
-bool solveSudoku(int tablero[9][9], int n){ 
-    int fila = -1; 
-    int col = -1; 
-    bool vacio = true; 
-    for (int i = 0; i < n; i++) { 
-        for (int j = 0; j < n; j++)  { 
-            if (tablero[i][j] == 0)  { 
-                fila = i; 
-                col = j;                
-                vacio = false;  
-                break; 
-            } 
-        } 
-        if (!vacio) { 
-            break; 
-        }
-        
-    }     
-    if(vacio){ 
-        return true; 
-    }
-    
-    for(int num = 1; num <= n; num++){ 
-        if(isSafe(tablero, fila, col, num)) { 
-            tablero[fila][col] = num;
-           // imprimirconsola(tablero,tablero.length);
-            if (solveSudoku(tablero, n))  { 
-                // print(board, n); 
-                return true; 
-            }  
-            else{ 
-                tablero[fila][col] = 0; // replace it 
-            } 
-        } 
-    } 
-    return false; 
+bool solveSudoku(int tablero[9][9], int n){
+	int fila = -1,columna =-1;
+	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
+		{
+			if(tablero[i][j] == 0)
+			{
+				columna = i;
+				fila = j;
+				goto endo;
+			}
+		}
+	}
+endo:
+	if(fila == -1 && columna == -1) return true;
+	for(int i=1;i<=9;i++)
+	{
+		if(isSafe(tablero,fila,columna,i))
+		{
+			tablero[columna][fila] = i;
+			if(solveSudoku(tablero,n))
+			{
+				return true;
+			}
+			else
+			{
+				tablero[columna][fila] = 0;
+			}
+		}
+	}
+	return false;
+
 }
 
 
