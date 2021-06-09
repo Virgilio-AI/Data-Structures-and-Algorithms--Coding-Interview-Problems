@@ -1,60 +1,56 @@
-#include<bits/stdc++.h>			//== CREATED BY ROCKHIGHT == -- 29-07-20 10:00 --
-using namespace std;			//{{ title }}
+//Fri May 21 06:33:18 PM CDT 2021
+//created by: rockhight
+#include<bits/stdc++.h>    
+using namespace std;
+//general functions I/O input c style array, input c style array randomly, output array 
 void cinArr(int n,int arr[]){for(int i=1;i<=n;i++){cin>>arr[i];}}
+void cinrArr(int n,int k,int arr[]){for(int i=1;i<=n;i++){arr[i] = rand()%k;}}
 void coutArr(int n,int arr[]){for(int i=1;i<=n;i++){cout<<arr[i]<<" ";}}
-//===== VARIABLES GLOBALES === -> === PROTOTIPOS DE FUNCIONES ===== funciones =====
-const int Nmax=100000007;const double pi = 2*acos(0.0);
-int n,m,x,y,z,w,arreglo[Nmax];
-
-void heap_sort() {
-  //insercion
-  for(int i=2;i<=n;i++)
-  {
-    int h=i;
-    while( h>1 && arreglo[h] > arreglo[h/2])
-    {
-      swap(arreglo[h],arreglo[h/2]);
-      h = h/2;      
-    }
-  }
-  //eliminacion
-  for(int i=n;i>0;i--)
-  {
-    int p=1;
-    swap(arreglo[p],arreglo[i]);
-    //while one of the childs is bigger than the father 
-    while(p*2 < i && arreglo[p]<arreglo[p*2] || p*2+1 < i && arreglo[p]<arreglo[p*2+1] )
-    {
-      //if the right child is of the margins or if bouth the left and the right childs are inside 
-      //of the margins and the left child is bigger than the right child
-      if(p*2+1 >=i || p*2+1<i && p*2 < i && arreglo[p*2+1]<arreglo[p*2])
-      {
-        swap(arreglo[p],arreglo[p*2]);
-        p = p*2;
-      }
-      //if the two childs are on the margins and 
-      //the right child is less than the left child
-      else
-      {
-        swap(arreglo[p],arreglo[p*2+1]);
-        p = p*2+1;
-      }
-    }
-  }  
-}
+int n,m,z,x,x2,x3,y,y2,y3;
+const int N = 100;
 //=====================		MAIN 	===================================
-int main(){
-ios::sync_with_stdio(0);
-srand(time(NULL));
-n=5;
-arreglo[0]=0;
-for(int i=1;i<=n;i++){
-	arreglo[i]=rand()%51;
+int arr[N];
+//int mat[N][N];
+void solve()
+{
+	//inserting
+	for(int i=2;i<=n;i++)
+	{
+		int h = i;
+		while(h>1 && arr[h] > arr[h/2])
+		{
+			swap(arr[h],arr[h/2]);
+			h = h/2;
+		}
+	}
+	//popping out
+	for(int i=n;i>1;i--)
+	{
+		int p = 1;
+		swap(arr[p],arr[i]);
+		while(p*2 < i && arr[p*2] > arr[p] || p*2 + 1 < i && arr[p*2+1] > arr[p])
+		{
+			if(p*2 + 1 >= i || arr[p*2+1] < arr[p*2] ) 
+			{
+				swap(arr[p*2],arr[p]);
+				p = p*2;
+			}
+			else
+			{
+				swap(arr[p*2+1],arr[p]);
+				p = p*2+1;
+			}
+		}
+	}
 }
-coutArr(n,arreglo);cout<<"\n";
-heap_sort();
-coutArr(n,arreglo);
-return 0;
+					
+int main()
+{
+	srand(time(NULL));
+	n = 10;
+	cinrArr(n,10,arr);
+	coutArr(n,arr);cout<<endl;
+	solve();
+	coutArr(n,arr);
+	return 0;
 }
-
-
