@@ -1,4 +1,4 @@
-# Data Structures and Algorithms - Solving Coding Interview Problems
+# Data Structures and Algorithms - Spicy problems
 This is a collection of various data structures related problems and **strategies** implemented in C++ (Maybe Python too) that we, *as students*, considered important to practice 
 and extend your knowledge on these topics. 
 
