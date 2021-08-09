@@ -53,6 +53,5 @@ ios::sync_with_stdio(0);
   	cout<<i;  	cont++;
   }
   cout<<"]";
-	        	       
 return 0;
 }

@@ -6,4 +6,5 @@ quicksort
 *.un~
 *.cpp~
 .vscode
+.ccls
 #################
