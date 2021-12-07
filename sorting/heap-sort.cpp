@@ -1,36 +1,40 @@
-//Fri May 21 06:33:18 PM CDT 2021
-//created by: rockhight
-#include<bits/stdc++.h>    
+// Fecha: 12/December/2021 - Sunday
+// Autor: Virgilio Murillo Ochoa
+// personal github: Virgilio-AI
+// linkedin: https://www.linkedin.com/in/virgilio-murillo-ochoa-b29b59203
+// contact: virgiliomurilloochoa1@gmail.com
+#include<bits/stdc++.h>
 using namespace std;
-//general functions I/O input c style array, input c style array randomly, output array 
-void cinArr(int n,int arr[]){for(int i=1;i<=n;i++){cin>>arr[i];}}
-void cinrArr(int n,int k,int arr[]){for(int i=1;i<=n;i++){arr[i] = rand()%k;}}
-void coutArr(int n,int arr[]){for(int i=1;i<=n;i++){cout<<arr[i]<<" ";}}
-int n,m,z,x,x2,x3,y,y2,y3;
-const int N = 100;
-//=====================		MAIN 	===================================
-int arr[N];
-//int mat[N][N];
-void solve()
+const int N = 1000;
+int n,m,k,x,x2,x3,y,y2,y3,z,z2,z3,t1,t2,t3,ans;
+void imat(int mat[N][N]);
+void iar(int ar[N]);
+void par(int ar[N],int m);
+void pmat(int mat[N][N],int n,int m);
+int arr[N] = {0};
+
+void heap()
 {
-	//inserting
-	for(int i=2;i<=n;i++)
+	// heap insertion
+	for(int i=1;i<n;i++)
 	{
 		int h = i;
-		while(h>1 && arr[h] > arr[h/2])
+		while(h >=1 && arr[h] > arr[h/2])
 		{
 			swap(arr[h],arr[h/2]);
 			h = h/2;
 		}
 	}
-	//popping out
-	for(int i=n;i>1;i--)
+
+
+	// heap deletion
+	for(int i=n-1;i>0;i--)
 	{
-		int p = 1;
+		int p = 0;
 		swap(arr[p],arr[i]);
-		while(p*2 < i && arr[p*2] > arr[p] || p*2 + 1 < i && arr[p*2+1] > arr[p])
+		while( p*2 < i && arr[p*2] > arr[p] || p*2 + 1 < i && arr[p*2+1] > arr[p] )
 		{
-			if(p*2 + 1 >= i || arr[p*2+1] < arr[p*2] ) 
+			if(p*2+1 > i || arr[p*2+1] < arr[p*2])
 			{
 				swap(arr[p*2],arr[p]);
 				p = p*2;
@@ -42,15 +46,64 @@ void solve()
 			}
 		}
 	}
+
 }
-					
+
 int main()
 {
+	// float num = rand()%maxNUm;
 	srand(time(NULL));
-	n = 10;
-	cinrArr(n,10,arr);
-	coutArr(n,arr);cout<<endl;
-	solve();
-	coutArr(n,arr);
+	cin>>n;
+	for(int i=0;i<n;i++)
+	{
+		arr[i] = rand()%10;
+	}
+	par(arr,n);
+	heap();
+	par(arr,n);
 	return 0;
 }
+
+
+
+void par(int ar[N],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<ar[i]<<" ";
+	}
+	cout<<endl;
+}
+
+void pmat(int mat[N][N],int n,int m)
+{
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			cout<<mat[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+
+void imat(int mat[N][N])
+{
+	for(int i=0;i<N;i++)
+	{
+		for(int j=0;j<N;j++)
+		{
+			mat[i][j] = 0;
+		}
+	}
+}
+
+void iar(int ar[N])
+{
+	for(int i=0;i<N;i++)
+	{
+		ar[i] = 0;
+	}
+}
+
